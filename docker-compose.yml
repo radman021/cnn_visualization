@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  cnn-viz:
+    build: .
+    container_name: cnn-viz
+    ports:
+      - "7860:7860"
+    volumes:
+      - .:/app
+    tty: true
+    stdin_open: true
