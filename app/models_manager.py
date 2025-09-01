@@ -1,10 +1,12 @@
 import os
 import torch
 from torchvision import models
+from copy import deepcopy
 
 from config import Config
+from logger import Logger
 from enumerations.models import Models
-from maps.model_path import model_path
+from maps.model_paths import ModelPaths
 
 
 class ModelsManager:
@@ -23,17 +25,24 @@ class ModelsManager:
 
     @classmethod
     def init_all_models(cls):
+        logger = Logger("cli").get_logger()
         os.makedirs(Config.base_models_folder, exist_ok=True)
 
-        for model in cls._model_builder:
-            if model_path[model]:
+        model_paths = ModelPaths.get_model_paths()
+
+        for model_enum in cls._model_builder:
+
+            if os.path.exists(model_paths.get(model_enum)):
+                logger.info(
+                    f"Model {model_enum.value} already exists on path: {model_paths[model_enum]}"
+                )
                 continue
 
-            save_path = os.path.join(Config.base_models_folder, f"{model.value}.pth")
+            logger.info(f"Model {model_enum.value} isn't present, downloading it...")
+            save_path = model_enum.value
 
-            model = cls._model_builder[model]()
-            torch.save(model, save_path)
+            model_instance = cls._model_builder[model_enum]()
+            torch.save(model_instance, model_paths[model_enum])
+            model_paths[model_enum.value] = save_path
 
-            model_path[model] = save_path
-
-        return model_path
+            logger.info(f"Successfully downloaded model {model_enum.value}.")
