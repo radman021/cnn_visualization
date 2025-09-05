@@ -11,6 +11,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-EXPOSE 7860
-
-CMD ["python", "app/run.py"]
+CMD ["streamlit", "run", "app/run.py", "--server.address=0.0.0.0"]
