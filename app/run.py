@@ -1,27 +1,16 @@
 import streamlit as st
-from enumerations.models import Models
-from predict import predict
-from logger import Logger
-from PIL import Image
 
-st.set_page_config(page_title="CNN Visualizer", layout="wide")
+st.set_page_config(page_title="Resnet Visualizer", layout="wide")
+st.title("ResNet Visualizer")
 
-st.title("CNN Layers Visualizer")
+st.write(
+    """
+    This application provides an interactive environment for exploring ResNet strcture.
 
-model_options = [m["model_id"] for m in Models.get_all_models()]
+    From the sidebar, you can navigate to the following modules:
 
-logger = Logger("cli").get_logger()
-logger.info(f"Available models: {model_options}")
-
-uploaded_file = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
-selected_model = st.selectbox("Select Model", options=model_options)
-
-if uploaded_file is not None and selected_model:
-    image = Image.open(uploaded_file)
-    st.image(image, caption="Uploaded Image", use_column_width=True)
-
-    with st.spinner("Analyzing..."):
-        result = predict(image, selected_model)
-
-    st.success("Result:")
-    st.write(result)
+    - **Visualizing Output by Layers**: inspect the intermediate feature maps produced by each convolutional layer for a given input image.
+    - **Visualizing Filter Weights**: view convolutional filters at each layer of the network.
+    - **Filters as Linear Combinations**: examine how higher-level filters can be expressed as linear combinations of lower-level filters
+    """
+)
