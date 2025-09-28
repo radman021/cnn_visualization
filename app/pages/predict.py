@@ -17,7 +17,7 @@ if uploaded_file is not None and selected_model:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Image", use_column_width=True)
 
-    with st.spinner("Analyzing..."):
+    with st.spinner("Running prediction..."):
         result = predict(image, selected_model)
 
     st.success("Result:")

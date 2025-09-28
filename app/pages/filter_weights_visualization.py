@@ -8,6 +8,7 @@ from maps.model_paths import ModelPaths
 from filters_visualizer import FiltersVisualizer
 from folder_tree_builder import build_folder_tree
 
+
 st.set_page_config(page_title="Filters Visualizer", layout="wide")
 st.title("Filters Visualizer")
 
@@ -34,7 +35,10 @@ if not folder_tree:
         base_dir = f"storage/{model_enum.value}/filters_weight_viz"
 
         fv = FiltersVisualizer(model)
-        fv.save_all_filters_weights(base_dir=base_dir)
+
+        with st.spinner(f"Saving filter weights for model {model_enum.value}..."):
+            fv.save_all_filters_weights(base_dir=base_dir)
+
         st.success(f"All filters saved in {base_dir}.")
 
         st.rerun()
