@@ -18,10 +18,11 @@ st.write(
     """
     This application provides an interactive environment for exploring ResNet strcture.
 
-    From the sidebar, you can navigate to the following modules:
+    From the sidebar, you can navigate to the following pages:
 
-    - **Visualizing Output by Layers**: inspect the intermediate feature maps produced by each convolutional layer for a given input image.
-    - **Visualizing Filter Weights**: view convolutional filters at each layer of the network.
-    - **Filters as Linear Combinations**: examine how higher-level filters can be expressed as linear combinations of lower-level filters
+    - **Visualizing Output for Hidden Layers**: View how image propagates through network.
+    - **Visualizing Filter Weights**: View convolutional filters at each layer of the network.
+    - **Filters as Linear Combinations**: View filters as linear combinations of lower-level filters.
+    - **Predict**: Create simple predictions for images and check results.
     """
 )
